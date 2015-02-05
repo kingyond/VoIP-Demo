@@ -7,15 +7,36 @@
 //
 
 import UIKit
+import PushKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate {
 
     var window: UIWindow?
 
+    func voipRegistration() {
+        let voipRegistry: PKPushRegistry = PKPushRegistry(queue: dispatch_get_main_queue())
+        voipRegistry.delegate = self
+        voipRegistry.desiredPushTypes = NSSet(object: PKPushTypeVoIP)
+    }
+
+    func pushRegistry(registry: PKPushRegistry!, didUpdatePushCredentials credentials: PKPushCredentials!, forType type: String!) {
+        //register push token with ZeroPush
+        NSLog(credentials.token.description)
+    }
+
+    func pushRegistry(registry: PKPushRegistry!, didReceiveIncomingPushWithPayload payload: PKPushPayload!, forType type: String!) {
+        //handle push event
+        NSLog(payload.description)
+    }
+
+    func pushRegistry(registry: PKPushRegistry!, didInvalidatePushTokenForType type: String!) {
+        //unregister
+    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        voipRegistration()
         return true
     }
 
