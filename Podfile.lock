@@ -1,0 +1,10 @@
+PODS:
+  - ZeroPush (2.0.4)
+
+DEPENDENCIES:
+  - ZeroPush (~> 2.0)
+
+SPEC CHECKSUMS:
+  ZeroPush: c90562f54d7db07c948f89b23f1a447f61f0041b
+
+COCOAPODS: 0.35.0
