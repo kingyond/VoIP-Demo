@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="VoIP_Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -15,11 +16,62 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plum" translatesAutoresizingMaskIntoConstraints="NO" id="N4Q-rV-IPR">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3AR-KJ-XiR">
+                                <rect key="frame" x="191" y="559" width="208" height="21"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter-card-120x120" translatesAutoresizingMaskIntoConstraints="NO" id="bDh-sA-VRN">
+                                <rect key="frame" x="16" y="28" width="120" height="120"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ZeroPush VoIP Demo" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8aq-gK-1as">
+                                <rect key="frame" x="144" y="44" width="265" height="88"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xnl-kW-2XN">
+                                <rect key="frame" x="191" y="271" width="218" height="58"/>
+                                <state key="normal" title="Request Notifications">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="requestButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="oKy-rv-9uY"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8aq-gK-1as" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="24" id="0VJ-2L-Iz9"/>
+                            <constraint firstItem="bDh-sA-VRN" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="1pB-LE-nm3"/>
+                            <constraint firstAttribute="centerY" secondItem="Xnl-kW-2XN" secondAttribute="centerY" id="41p-wS-RY4"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="N4Q-rV-IPR" secondAttribute="bottom" id="8sb-XE-1iM"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="3AR-KJ-XiR" secondAttribute="bottom" constant="20" id="9Q4-TZ-QJR"/>
+                            <constraint firstItem="8aq-gK-1as" firstAttribute="leading" secondItem="bDh-sA-VRN" secondAttribute="trailing" constant="8" id="CMd-Iv-zfF"/>
+                            <constraint firstItem="bDh-sA-VRN" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="G7p-1z-4WV"/>
+                            <constraint firstItem="N4Q-rV-IPR" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" id="bkr-1W-P7i"/>
+                            <constraint firstItem="N4Q-rV-IPR" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="evL-EY-6Pj"/>
+                            <constraint firstAttribute="centerX" secondItem="Xnl-kW-2XN" secondAttribute="centerX" id="ilW-4K-Zwr"/>
+                            <constraint firstAttribute="centerX" secondItem="3AR-KJ-XiR" secondAttribute="centerX" id="kZc-J1-JfG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="N4Q-rV-IPR" secondAttribute="trailing" constant="-16" id="zLb-ia-rfa"/>
+                        </constraints>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <connections>
+                        <outlet property="tokenLabel" destination="3AR-KJ-XiR" id="7jY-if-ZUn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="plum" width="600" height="1680"/>
+        <image name="twitter-card-120x120" width="120" height="120"/>
+    </resources>
 </document>
