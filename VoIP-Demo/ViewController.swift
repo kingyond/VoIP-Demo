@@ -10,6 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var tokenLabel: UILabel!
+    @IBOutlet weak var payloadLabel: UILabel!
+
+    @IBAction func requestButtonPressed(sender: UIButton) {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.registerVoipNotifications()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

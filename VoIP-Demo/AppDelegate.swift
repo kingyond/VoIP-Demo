@@ -10,33 +10,69 @@ import UIKit
 import PushKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, ZeroPushDelegate {
 
     var window: UIWindow?
+    var viewController: ViewController?
 
-    func voipRegistration() {
+    func registerVoipNotifications() {
         let voipRegistry: PKPushRegistry = PKPushRegistry(queue: dispatch_get_main_queue())
         voipRegistry.delegate = self
         voipRegistry.desiredPushTypes = NSSet(object: PKPushTypeVoIP)
+        NSLog("VoIP registered")
+        let types: UIUserNotificationType = (UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert)
+        let notificationSettings = UIUserNotificationSettings(forTypes:types, categories:nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
     }
 
     func pushRegistry(registry: PKPushRegistry!, didUpdatePushCredentials credentials: PKPushCredentials!, forType type: String!) {
-        //register push token with ZeroPush
-        NSLog(credentials.token.description)
+
+        let voipZeroPush = ZeroPush()
+        //TODO: set your own tokens here
+#if DEBUG
+        voipZeroPush.apiKey = "iosdev_xxxxxxxxxxx"
+#else
+        voipZeroPush.apiKey = "iosprod_xxxxxxxxxx"
+#endif
+        voipZeroPush.registerDeviceToken(credentials.token, channel: "me")
+
+        //UI updates must happen on main thread
+        dispatch_async(dispatch_get_main_queue(), {
+            let deviceToken = ZeroPush.deviceTokenFromData(credentials.token)
+            NSLog("VoIP Token: %@ subscribed to channel `me`", deviceToken)
+            self.viewController?.tokenLabel.text = deviceToken
+            self.viewController?.payloadLabel.hidden = false
+        })
     }
 
     func pushRegistry(registry: PKPushRegistry!, didReceiveIncomingPushWithPayload payload: PKPushPayload!, forType type: String!) {
         //handle push event
-        NSLog(payload.description)
+        let data = payload.dictionaryPayload
+        let notification = UILocalNotification()
+        NSLog("%@", data)
+
+        //UI updates must happen on main thread
+        dispatch_async(dispatch_get_main_queue(), {
+            let _ = self.viewController?.payloadLabel.text = data.description
+        })
+
+        //setup the notification
+        let aps = (data["aps"] as [NSString: AnyObject])
+        notification.alertBody = aps["alert"] as NSString!
+        notification.category = aps["category"] as NSString!
+
+        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
     }
 
     func pushRegistry(registry: PKPushRegistry!, didInvalidatePushTokenForType type: String!) {
         //unregister
+        NSLog("Unregister")
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        voipRegistration()
+        viewController = self.window?.rootViewController as ViewController?;
+        
         return true
     }
 
